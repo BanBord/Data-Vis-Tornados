@@ -3,8 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>US Counties Map with Names</title>
+    <title>Data Visualization Tornados</title>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://d3js.org/topojson.v3.min.js"></script>
+    <script src="lib/gmynd.js"></script> <!-- Include gmynd library -->
+
     <style>
+        /* Your custom CSS code here */
         body { margin: 0; }
         svg { width: 100%; height: 100vh; }
         .county-label {
@@ -15,14 +21,8 @@
     </style>
 </head>
 <body>
+    <h1>Data Visualization Tornados</h1>
     <div id="map-container"></div>
-
-    <!-- Include D3.js -->
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-
-    <!-- Include TopoJSON -->
-    <script src="https://d3js.org/topojson.v3.min.js"></script>
-
     <script>
         // Set up SVG container
         const width = window.innerWidth;
@@ -35,32 +35,60 @@
         const projection = d3.geoAlbersUsa().scale(1300).translate([width / 2, height / 2]);
         const path = d3.geoPath().projection(projection);
 
-        // Load and process TopoJSON data
-        d3.json('topojson.json').then(data => {
-            const counties = topojson.feature(data, data.objects.counties).features;
+        // Load and process TopoJSON and Tornado data
+        Promise.all([
+            d3.json('topojson.json'),
+            d3.json('tornados_short.json')
+        ]).then(([topoData, tornadoData]) => {
+            const counties = topojson.feature(topoData, topoData.objects.counties).features;
 
-            // Draw counties with a stroke
+            // Filter tornado data for a specific year, e.g., 1950
+            const year = 2011;
+            const filteredTornadoData = tornadoData.tornadoData.filter(d => d.yr === year);
+
+            // Group tornado data by FIPS for the specific year
+            const groupedByFIPSCode = gmynd.groupData(filteredTornadoData, ['FIPS']);
+
+            // Flatten the grouped data
+            const flattenedData = Object.keys(groupedByFIPSCode).map(key => {
+                return groupedByFIPSCode[key].map(item => ({ ...item, FIPS: key }));
+            }).flat();
+
+            // Cumulate tornado data by FIPS for the specific year
+            const cumulatedData = gmynd.cumulateData(flattenedData, ['FIPS'], [{ value: 'FIPS', method: 'count', title: 'tornadoCount' }]);
+            console.log(cumulatedData);
+
+            // Combine cumulated data with TopoJSON data
+            counties.forEach(county => {
+                const fips = county.id;
+                const tornadoData = cumulatedData.find(d => d.FIPS == fips);
+                county.properties.tornadoCount = tornadoData ? tornadoData.tornadoCount : 0;
+            });
+
+            // Extract tornado counts for color mapping
+            const tornadoCounts = cumulatedData.map(d => d.tornadoCount);
+            const maxTornadoCount = d3.max(tornadoCounts);
+            console.log(maxTornadoCount);
+
+            // Define a color mapping function using gmynd.map
+            const colorMapping = d => {
+                const normalizedValue = gmynd.map(d.properties.tornadoCount, 0, maxTornadoCount, 0, 1);
+                return d3.interpolateReds(normalizedValue);
+            };
+
+            // Draw counties with a stroke and fill color based on tornado count
             svg.selectAll("path")
                 .data(counties)
                 .enter().append("path")
                 .attr("d", path)
-                .attr("fill", "#cccccc") // Fill color for counties
+                .attr("fill", colorMapping) // Fill color based on tornado count using gmynd.map
                 .attr("stroke", "#000000") // Black stroke for county borders
                 .attr("stroke-width", 0.5) // Stroke width
-                .attr("name", function(d) { return d.properties.name; })
-                .attr("ID", function(d) { return d.id; });
+                .attr("name", d => d.properties.name)
+                .attr("ID", d => d.id);
 
-            // Append county names
-        //     svg.selectAll(".county-label")
-        //         .data(counties)
-        //         .enter().append("text")
-        //         .attr("class", "county-label")
-        //         .attr("transform", function(d) {
-        //             return "translate(" + path.centroid(d) + ")";
-        //         })
-        //         .text(function(d) { return d.properties.name; });
-        // }).catch(error => {
-        //     console.error('Error loading or processing TopoJSON data:', error);
+        }).catch(error => {
+            console.error('Error loading the data:', error);
         });
     </script>
 </body>
