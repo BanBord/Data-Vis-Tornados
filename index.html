@@ -12,21 +12,33 @@
     <style>
         /* Your custom CSS code here */
         body { margin: 0; }
-        svg { width: 100%; height: 100vh; }
+        svg { width: 100%; height: 90vh; }
         .county-label {
             font-size: 10px;
-            fill: #000;
+            fill: #ffffff; /* Set text color to white */
             text-anchor: middle;
+        }
+        #slider-container {
+            width: 100%;
+            text-align: center;
+            margin-top: 10px;
+        }
+        #year-slider {
+            width: 80%;
         }
     </style>
 </head>
 <body>
     <h1>Data Visualization Tornados</h1>
     <div id="map-container"></div>
+    <div id="slider-container">
+        <input type="range" id="year-slider" min="1950" max="2022" value="1950" step="1">
+        <span id="year-label">1950</span>
+    </div>
     <script>
         // Set up SVG container
         const width = window.innerWidth;
-        const height = window.innerHeight;
+        const height = window.innerHeight * 0.9; // Adjust height for slider
         const svg = d3.select("#map-container").append("svg")
             .attr("width", width)
             .attr("height", height);
@@ -38,54 +50,78 @@
         // Load and process TopoJSON and Tornado data
         Promise.all([
             d3.json('topojson.json'),
-            d3.json('tornados_short.json')
+            d3.json('Tornados_short_FIPS.json') // Updated file name
         ]).then(([topoData, tornadoData]) => {
             const counties = topojson.feature(topoData, topoData.objects.counties).features;
 
-            // Filter tornado data for a specific year, e.g., 1950
-            const year = 2011;
-            const filteredTornadoData = tornadoData.tornadoData.filter(d => d.yr === year);
+            // Function to update the map based on the selected year
+            function updateMap(year) {
+                const filteredTornadoData = tornadoData.tornadoData.filter(d => d.yr === year);
 
-            // Group tornado data by FIPS for the specific year
-            const groupedByFIPSCode = gmynd.groupData(filteredTornadoData, ['FIPS']);
+                // Group tornado data by FIPS for the specific year
+                const groupedByFIPSCode = gmynd.groupData(filteredTornadoData, ['FIPS']);
+                console.log(groupedByFIPSCode);
 
-            // Flatten the grouped data
-            const flattenedData = Object.keys(groupedByFIPSCode).map(key => {
-                return groupedByFIPSCode[key].map(item => ({ ...item, FIPS: key }));
-            }).flat();
+                // Cumulate tornado data by FIPS for the specific year
+                const cumulatedData = gmynd.cumulateData(filteredTornadoData, ['FIPS'], [{ value: 'FIPS', method: 'count' }]);
+                console.log("bla", cumulatedData);
 
-            // Cumulate tornado data by FIPS for the specific year
-            const cumulatedData = gmynd.cumulateData(flattenedData, ['FIPS'], [{ value: 'FIPS', method: 'count', title: 'tornadoCount' }]);
-            console.log(cumulatedData);
+                // Combine cumulated data with TopoJSON data
+                counties.forEach(county => {
+                    const fips = county.id;
+                    const tornadoData = cumulatedData.find(d => d.FIPS == fips);
+                    county.properties.tornadoCount = tornadoData ? tornadoData.count : 0;
+                });
 
-            // Combine cumulated data with TopoJSON data
-            counties.forEach(county => {
-                const fips = county.id;
-                const tornadoData = cumulatedData.find(d => d.FIPS == fips);
-                county.properties.tornadoCount = tornadoData ? tornadoData.tornadoCount : 0;
+                // Extract tornado counts for color mapping
+                const maxTornadoCount = d3.max(counties, d => d.properties.tornadoCount);
+
+                console.log('Max tornado count:', maxTornadoCount);
+
+                // Define a color scale
+                const colorScale = d3.scaleLinear()
+                    .domain([0, maxTornadoCount])
+                    .range(["#264653", "#E76F51"]);
+
+                // Update counties with a stroke and fill color based on tornado count
+                svg.selectAll("path")
+                    .data(counties)
+                    .join("path")
+                    .attr("d", path)
+                    .attr("fill", d => {
+                        const count = d.properties.tornadoCount;
+                        if (isNaN(count) || count === undefined || count === null) {
+                            console.warn(`Invalid tornado count for FIPS: ${d.id}, Name: ${d.properties.name}, year: ${year}, count: ${count}`);
+                            return "#00ff00"; // Default to green for invalid counts
+                        }
+                        return colorScale(count); // Fill color based on tornado count using color scale
+                    })
+                    .attr("stroke", "#000000") // Black stroke for county borders
+                    .attr("stroke-width", 0.5) // Stroke width
+                    .attr("name", d => d.properties.name)
+                    .attr("ID", d => d.id)
+                    .attr("amount", d => d.properties.tornadoCount);
+
+                // Add text elements to display tornado counts
+                // svg.selectAll("text")
+                //     .data(counties)
+                //     .join("text")
+                //     .attr("class", "county-label")
+                //     .attr("transform", d => `translate(${path.centroid(d)})`)
+                //     .text(d => d.properties.tornadoCount);
+            }
+
+            // Initial map update
+            updateMap(1950);
+
+            // Add event listener to the slider
+            const slider = document.getElementById("year-slider");
+            const yearLabel = document.getElementById("year-label");
+            slider.addEventListener("input", function() {
+                const year = +this.value;
+                yearLabel.textContent = year;
+                updateMap(year);
             });
-
-            // Extract tornado counts for color mapping
-            const tornadoCounts = cumulatedData.map(d => d.tornadoCount);
-            const maxTornadoCount = d3.max(tornadoCounts);
-            console.log(maxTornadoCount);
-
-            // Define a color mapping function using gmynd.map
-            const colorMapping = d => {
-                const normalizedValue = gmynd.map(d.properties.tornadoCount, 0, maxTornadoCount, 0, 1);
-                return d3.interpolateReds(normalizedValue);
-            };
-
-            // Draw counties with a stroke and fill color based on tornado count
-            svg.selectAll("path")
-                .data(counties)
-                .enter().append("path")
-                .attr("d", path)
-                .attr("fill", colorMapping) // Fill color based on tornado count using gmynd.map
-                .attr("stroke", "#000000") // Black stroke for county borders
-                .attr("stroke-width", 0.5) // Stroke width
-                .attr("name", d => d.properties.name)
-                .attr("ID", d => d.id);
 
         }).catch(error => {
             console.error('Error loading the data:', error);
