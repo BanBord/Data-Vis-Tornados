@@ -18,10 +18,17 @@ Promise.all([
 
     // Function to update the map based on the selected year and magnitude level
     function updateMap(year, magnitudeLevel = 'all') {
-        // Filter tornado data based on the selected year and magnitude level
-        let filteredTornadoData = tornadoData.tornadoData.filter(d => {
-            return d.yr === year && (magnitudeLevel === 'all' || d.mag == magnitudeLevel);
-        });
+        let filteredTornadoData;
+
+        if (magnitudeLevel === 'heatmap') {
+            // Aggregate tornado data by FIPS code across all years and magnitudes
+            filteredTornadoData = tornadoData.tornadoData;
+        } else {
+            // Filter tornado data based on the selected year and magnitude level
+            filteredTornadoData = tornadoData.tornadoData.filter(d => {
+                return d.yr === year && (magnitudeLevel === 'all' || d.mag == magnitudeLevel);
+            });
+        }
 
         // Check if filtered data is empty and magnitude level is 5
         if (filteredTornadoData.length === 0 && magnitudeLevel == 5) {
@@ -80,8 +87,14 @@ Promise.all([
                 .domain([0, maxTornadoCount])
                 .range(["#363232", "#BB3E03"]), // Example color range for magnitude 4
             5: d3.scaleLinear()
+                .domain([0, maxTornadoCount]),
+            // Example color range for magnitude 5
+            5: d3.scaleLinear()
                 .domain([0, maxTornadoCount])
-                .range(["#363232", "#AE2012"])  // Example color range for magnitude 5
+                .range(["#363232", "#AE2012"]), // Example color range for magnitude 5
+            heatmap: d3.scaleLinear()
+                .domain([0, maxTornadoCount / 5, (2 * maxTornadoCount) / 5, (3 * maxTornadoCount) / 5, (4 * maxTornadoCount) / 5, maxTornadoCount])
+                .range(["#363232", "#1937D7", "#62A6E5", "#ECD147", "#ECA539", "#E55535"])  // Color range for heatmap
         };
 
         // Select the appropriate color scale based on the magnitude level
