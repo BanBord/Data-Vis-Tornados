@@ -20,9 +20,8 @@ Promise.all([
     function updateMap(year) {
         const filteredTornadoData = tornadoData.tornadoData.filter(d => d.yr === year);
 
-        // Group tornado data by FIPS for the specific year
         const groupedByFIPSCode = d3.group(filteredTornadoData, d => d.FIPS);
-        // console.log(groupedByFIPSCode);
+        // console.log('Grouped by FIPS Code:', groupedByFIPSCode);
 
         // Cumulate tornado data by FIPS for the specific year
         const cumulatedData = gmynd.cumulateData(filteredTornadoData, ['FIPS'], [{ value: 'FIPS', method: 'count', }]);
@@ -44,7 +43,6 @@ Promise.all([
             .domain([0, maxTornadoCount / 4, maxTornadoCount / 2, (3 * maxTornadoCount) / 4, maxTornadoCount])
             .range(["#2A9D8F", "#E9C46A", "#F28833", "#E2502C"]);
 
-
         // Update counties with a stroke and fill color based on tornado count
         svg.selectAll("path")
             .data(counties)
@@ -63,12 +61,12 @@ Promise.all([
             .attr("name", d => d.properties.name)
             .attr("ID", d => d.id)
             .attr("amount", d => d.properties.tornadoCount);
-            
-            // Access and log magnitude levels
-            groupedByFIPSCode.forEach((tornadoes, fips) => {
-                const magnitudes = tornadoes.map(tornado => tornado.mag); // Ensure 'mag' is the correct property name
-                console.log(`FIPS: ${fips}, Magnitudes: ${magnitudes}`);
-            });
+
+        // Access and log magnitude levels
+        groupedByFIPSCode.forEach((tornadoes, fips) => {
+            const magnitudes = tornadoes.map(tornado => tornado.mag); // Ensure 'mag' is the correct property name
+            console.log(`FIPS: ${fips}, Magnitudes: ${magnitudes}`);
+        });
     }
 
     // Initial map update
