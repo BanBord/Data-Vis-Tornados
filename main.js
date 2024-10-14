@@ -59,10 +59,33 @@ Promise.all([
 
         console.log('Max tornado count:', maxTornadoCount);
 
-        // Define a color scale
-        const colorScale = d3.scaleLinear()
-            .domain([0, maxTornadoCount / 3, (2 * maxTornadoCount) / 3, maxTornadoCount])
-            .range(["#363232", "#349ACC", "#8ECAE6", "#F2FBFF"]);
+        // Define color scales for each magnitude level
+        const colorScales = {
+            all: d3.scaleLinear()
+                .domain([0, maxTornadoCount / 3, (2 * maxTornadoCount) / 3, maxTornadoCount])
+                .range(["#363232", "#349ACC", "#8ECAE6", "#F2FBFF"]),
+            0: d3.scaleLinear()
+                .domain([0, maxTornadoCount])
+                .range(["#363232", "#D8B94B"]), // Example color range for magnitude 0
+            1: d3.scaleLinear()
+                .domain([0, maxTornadoCount])
+                .range(["#363232", "#EE9B00"]), // Example color range for magnitude 1
+            2: d3.scaleLinear()
+                .domain([0, maxTornadoCount])
+                .range(["#363232", "#FFFF00"]), // Example color range for magnitude 2
+            3: d3.scaleLinear()
+                .domain([0, maxTornadoCount])
+                .range(["#363232", "#CA6702"]), // Example color range for magnitude 3
+            4: d3.scaleLinear()
+                .domain([0, maxTornadoCount])
+                .range(["#363232", "#BB3E03"]), // Example color range for magnitude 4
+            5: d3.scaleLinear()
+                .domain([0, maxTornadoCount])
+                .range(["#363232", "#AE2012"])  // Example color range for magnitude 5
+        };
+
+        // Select the appropriate color scale based on the magnitude level
+        const colorScale = colorScales[magnitudeLevel] || colorScales.all;
 
         // Update counties with a stroke and fill color based on tornado count
         svg.selectAll("path")
