@@ -90,11 +90,16 @@ Promise.all([
                 .domain([0, maxTornadoCount]),
             // Example color range for magnitude 5
             5: d3.scaleLinear()
-                .domain([0, maxTornadoCount])
-                .range(["#363232", "#AE2012"]), // Example color range for magnitude 5
-            heatmap: d3.scaleLinear()
-                .domain([0, maxTornadoCount / 5, (2 * maxTornadoCount) / 5, (3 * maxTornadoCount) / 5, (4 * maxTornadoCount) / 5, maxTornadoCount])
-                .range(["#363232", "#1937D7", "#62A6E5", "#ECD147", "#ECA539", "#E55535"])  // Color range for heatmap
+                .domain([0, maxTornadoCount]),
+                // Example color range for magnitude 5
+                5: d3.scaleLinear()
+                    .domain([0, maxTornadoCount])
+                    .range(["#363232", "#AE2012"]), // Example color range for magnitude 5
+
+                // Color range for heatmap
+                heatmap: d3.scaleLinear()
+                    .domain([0, maxTornadoCount / 5, (2 * maxTornadoCount) / 5, (3 * maxTornadoCount) / 5, (4 * maxTornadoCount) / 5, maxTornadoCount])
+                    .range(["#363232", "#D8B94B", "#EE9B00", "#CA6702", "#BB3E03", "#AE2012"])  // Color range for heatmap
         };
 
         // Select the appropriate color scale based on the magnitude level
