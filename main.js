@@ -6,7 +6,7 @@ const svg = d3.select("#map-container").append("svg")
     .attr("height", height);
 
 // Define a projection and path generator
-const projection = d3.geoAlbersUsa().scale(1300).translate([width / 2, height / 2]);
+let projection = d3.geoAlbersUsa().scale(1300).translate([width / 2, height / 2]);
 const path = d3.geoPath().projection(projection);
 
 // Load and process TopoJSON and Tornado data
@@ -68,8 +68,11 @@ Promise.all([
                 // Filter the tornado data for the selected FIPS code
                 selectedCounty = tornadoData.tornadoData.filter(t => t.FIPS == selectedFIPS);
 
-                // Debugging: Log the filtered data to ensure it is being populated
-                console.log('Selected County Data:', selectedCounty);
+                // Group the filtered data by year
+                const groupedByYear = d3.group(selectedCounty, d => d.yr);
+
+                // Debugging: Log the grouped data to ensure it is being populated
+                console.log('Grouped by Year:', groupedByYear);
             });
     }
 
