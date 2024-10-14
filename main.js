@@ -43,44 +43,36 @@ Promise.all([
             .domain([0, maxTornadoCount / 4, maxTornadoCount / 2, (3 * maxTornadoCount) / 4, maxTornadoCount])
             .range(["#2A9D8F", "#E9C46A", "#F28833", "#E2502C"]);
 
-        // Update counties with a stroke and fill color based on tornado count
+        // Define the selectedCounty array
+        let selectedCounty = [];
+
+        // Draw the counties
         svg.selectAll("path")
             .data(counties)
-            .join("path")
+            .enter().append("path")
             .attr("d", path)
-            .attr("fill", d => {
-                const count = d.properties.tornadoCount;
-                if (isNaN(count) || count === undefined || count === null) {
-                    console.warn(`Invalid tornado count for FIPS: ${d.id}, Name: ${d.properties.name}, year: ${year}, count: ${count}`);
-                    return "#00ff00"; // Default to green for invalid counts
-                }
-                return colorScale(count); // Fill color based on tornado count using color scale
+            .attr("fill", d => colorScale(d.properties.tornadoCount))
+            .on("mouseover", function(event, d) {
+                d3.select(this).attr("fill", "white");
             })
-            .attr("stroke", "#000000") // Black stroke for county borders
-            .attr("stroke-width", 0.5) // Stroke width
-            .attr("name", d => d.properties.name)
-            .attr("ID", d => d.id)
-            .attr("amount", d => d.properties.tornadoCount);
+            .on("mouseout", function(event, d) {
+                d3.select(this).attr("fill", colorScale(d.properties.tornadoCount));
+            })
+            .on("click", function(event, d) {
+                const selectedFIPS = d.id;
+                console.log('Selected FIPS:', selectedFIPS);
 
-        // Access and log magnitude levels
-        groupedByFIPSCode.forEach((tornadoes, fips) => {
-            const magnitudes = tornadoes.map(tornado => tornado.mag); // Ensure 'mag' is the correct property name
-            console.log(`FIPS: ${fips}, Magnitudes: ${magnitudes}`);
-        });
+                // Debugging: Log the tornado data to ensure it has the expected structure
+                console.log('Tornado Data:', tornadoData.tornadoData);
+
+                // Filter the tornado data for the selected FIPS code
+                selectedCounty = tornadoData.tornadoData.filter(t => t.FIPS == selectedFIPS);
+
+                // Debugging: Log the filtered data to ensure it is being populated
+                console.log('Selected County Data:', selectedCounty);
+            });
     }
 
-    // Initial map update
-    updateMap(1950);
-
-    // Add event listener to the slider
-    const slider = document.getElementById("year-slider");
-    const yearLabel = document.getElementById("year-label");
-    slider.addEventListener("input", function () {
-        const year = +this.value;
-        yearLabel.textContent = year;
-        updateMap(year);
-    });
-
-}).catch(error => {
-    console.error('Error loading the data:', error);
+    // Initial map update for a default year
+    updateMap(2020);
 });
