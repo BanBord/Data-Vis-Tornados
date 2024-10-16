@@ -11,6 +11,9 @@
             fill: #ffffff; /* Set text color to white */
             text-anchor: middle;
         }
+        h1 {
+            translate: 25%;
+        }
         #map-container {
             background: #1c1c1c; /* Replace with your desired background color */
             width: 100%;
@@ -18,8 +21,8 @@
             margin-top: 10px;
         }
         #slider-container {
-            width: 80%;
-            text-align: center;
+            width: 40%;
+            translate: 25%;
             margin: 20px auto 0 auto; /* Center the slider and add margin to the top */
         }        
         #year-slider {
