@@ -21,8 +21,8 @@
             margin-top: 10px;
         }
         #slider-container {
-            width: 40%;
-            translate: 25%;
+            width: 50%;
+            text-align: center;
             margin: 20px auto 0 auto; /* Center the slider and add margin to the top */
         }        
         #year-slider {
