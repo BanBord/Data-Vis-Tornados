@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timeline Slider</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #111;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .timeline-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .timeline-label {
+            margin: 0 10px;
+        }
+
+        .timeline-slider {
+            -webkit-appearance: none;
+            width: 300px;
+            height: 5px;
+            background: #333;
+            outline: none;
+            opacity: 0.7;
+            transition: opacity .15s ease-in-out;
+        }
+
+        .timeline-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 15px;
+            height: 15px;
+            background: #ccc;
+            cursor: pointer;
+        }
+
+        .timeline-slider::-moz-range-thumb {
+            width: 15px;
+            height: 15px;
+            background: #ccc;
+            cursor: pointer;
+        }
+
+        .control-buttons {
+            margin-left: 10px;
+        }
+
+        .control-buttons button {
+            background-color: #444;
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+
+        .control-buttons button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<div class="timeline-container">
+    <span class="timeline-label">1950</span>
+    <input type="range" min="1950" max="2022" value="1950" class="timeline-slider" id="yearSlider">
+    <span class="timeline-label">2022</span>
+    <div class="control-buttons">
+        <button id="playPauseButton">></button>
+    </div>
+</div>
+
+<script>
+    const slider = document.getElementById('yearSlider');
+    const playPauseButton = document.getElementById('playPauseButton');
+    let playing = false;
+
+    playPauseButton.addEventListener('click', () => {
+        playing = !playing;
+
+        if (playing) {
+            playPauseButton.textContent = 'II';
+            play();
+        } else {
+            playPauseButton.textContent = '>';
+        }
+    });
+
+    function play() {
+        if (playing) {
+            if (slider.value < slider.max) {
+                slider.value++;
+                setTimeout(play, 100); // Adjust speed as needed
+            } else {
+                playing = false; // Stop at the end
+                slider.value = 1950; // Reset to the beginning
+                playPauseButton.textContent = '>';
+            }
+            console.log(slider.value);
+        }
+    }
+</script>
+
+</body>
+</html>
