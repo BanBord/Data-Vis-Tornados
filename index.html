@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Visualization Tornados</title>
+    <link rel="stylesheet" href="small_chart/smallChart.css">
 
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://d3js.org/topojson.v3.min.js"></script>
     <script src="lib/gmynd.js"></script> <!-- Include gmynd library -->
-
+    <script src="small_chart/small_chart.js"></script>
+    <script src="small_chart/scmall_chart_prompt.js"></script>
 </head>
 <body>
     <h1>Data Visualization Tornados</h1>
@@ -16,7 +18,8 @@
     <div id="slider-container">
         <input type="range" id="year-slider" min="1950" max="2022" value="1950" step="1">
         <span id="year-label">1950</span>
-        <script src="main.js"></script> 
     </div>
+    <div id="small_chart"></div>
 </body>
+<script src="main.js"></script> 
 </html>

@@ -69,6 +69,9 @@ Promise.all([
         });
     }
 
+    // drawSmallChart(tornadoData);
+    createTornadoLineChart(tornadoData, 8121);
+
     // Initial map update
     updateMap(1950);
 
@@ -84,3 +87,4 @@ Promise.all([
 }).catch(error => {
     console.error('Error loading the data:', error);
 });
+
