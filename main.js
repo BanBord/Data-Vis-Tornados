@@ -6,7 +6,7 @@ const svg = d3.select("#map-container").append("svg")
     .attr("height", height);
 
 // Define a projection and path generator
-const projection = d3.geoAlbersUsa().scale(1300).translate([width / 2, height / 2]);
+let projection = d3.geoAlbersUsa().scale(1300).translate([width / 2, height / 2]);
 const path = d3.geoPath().projection(projection);
 
 // Load and process TopoJSON and Tornado data
@@ -100,10 +100,13 @@ Promise.all([
         // Select the appropriate color scale based on the magnitude level
         const colorScale = colorScales[heatmapLevel !== 'none' ? 'heatmap' : magnitudeLevel] || colorScales.all;
 
-        // Update counties with a stroke and fill color based on tornado count
+        // Define the selectedCounty array
+        let selectedCounty = [];
+
+        // Draw the counties
         svg.selectAll("path")
             .data(counties)
-            .join("path")
+            .enter().append("path")
             .attr("d", path)
             .attr("fill", d => {
                 const count = d.properties.tornadoCount;
@@ -113,15 +116,29 @@ Promise.all([
                 }
                 return colorScale(count); // Fill color based on tornado count using color scale
             })
+            .on("mouseover", function(event, d) {
+                d3.select(this).attr("fill", "white");
+                const selectedFIPS = d.id;
+                console.log('Selected FIPS:', selectedFIPS);
+            })
+            .on("mouseout", function(event, d) {
+                d3.select(this).attr("fill", colorScale(d.properties.tornadoCount));
+            })
             .attr("stroke", "#000000") // Black stroke for county borders
             .attr("stroke-width", 0.07) // Stroke width
             .attr("name", d => d.properties.name)
             .attr("ID", d => d.id)
             .attr("amount", d => d.properties.tornadoCount);
-    }
+    
 
-    // Initial map update
-    updateMap(1950);
+                // Debugging: Log the tornado data to ensure it has the expected structure
+                console.log('Tornado Data:', tornadoData.tornadoData);
+
+
+                // Filter the tornado data for the selected FIPS code
+                selectedCounty = tornadoData.tornadoData.filter(t => t.FIPS == selectedFIPS);
+            });
+    }
 
     // Add event listener to the slider
     const slider = document.getElementById("year-slider");
