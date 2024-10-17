@@ -12,8 +12,51 @@
     <link rel="stylesheet" href="selectionBoxes.css">
 </head>
 <body class="font-class">
+    <div id="selectionBoxes">
+        <div id="modeSelectionBox" class="selectionBox">
+        <label>
+            <input type="radio" name="modeSelection" value="singleYear" checked onclick="handleSelectionBox(this)">
+            <span>Single year</span>
+        </label>
+        <label>
+            <input type="radio" name="modeSelection" value="wholePeriod" onclick="handleSelectionBox(this)">
+            <span>Whole period</span>
+        </label>
+    </div>
+    <div id="magnitudeSelectionBox" class="selectionBox">
+        <label>
+            <input type="radio" name="magnitudeSelection" value="all" checked onclick="handleSelectionBox(this)">
+            <span>Show all</span>
+        </label>
+        <label>
+            <input type="radio" name="magnitudeSelection" value="0" onclick="handleSelectionBox(this)">
+            <span>EF 0</span>
+        </label>
+        <label>
+            <input type="radio" name="magnitudeSelection" value="1" onclick="handleSelectionBox(this)">
+            <span>EF 1</span>
+        </label>
+        <label>
+            <input type="radio" name="magnitudeSelection" value="2" onclick="handleSelectionBox(this)">
+            <span>EF 2</span>
+        </label>
+        <label>
+            <input type="radio" name="magnitudeSelection" value="3" onclick="handleSelectionBox(this)">
+            <span>EF 3</span>
+        </label>
+        <label>
+            <input type="radio" name="magnitudeSelection" value="4" onclick="handleSelectionBox(this)">
+            <span>EF 4</span>
+        </label>
+        <label>
+            <input type="radio" name="magnitudeSelection" value="5" onclick="handleSelectionBox(this)">
+            <span>EF 5</span>
+        </label>
+    </div>
+    </div>
     <h1>Data Visualization Tornados</h1> 
     <div id="map-container">
+        
         <div id="slider-container">
             <input type="range" id="year-slider" min="1950" max="2022" value="1950" step="1">
             <span id="year-label">1950</span>
@@ -41,50 +84,9 @@
                 <option value="5">5</option>
             </select>
         </div>
-        <div id="selectionBoxes">
-            <div id="modeSelectionBox" class="selectionBox">
-            <label>
-                <input type="radio" name="modeSelection" value="singleYear" checked onclick="handleRadioClick(this)">
-                <span>Single year</span>
-            </label>
-            <label>
-                <input type="radio" name="modeSelection" value="wholePeriod" onclick="handleRadioClick(this)">
-                <span>Whole period</span>
-            </label>
-        </div>
-        <div id="magnitudeSelectionBox" class="selectionBox">
-            <label>
-                <input type="radio" name="magnitudeSelection" value="all" checked onclick="handleRadioClick(this)">
-                <span>Show all</span>
-            </label>
-            <label>
-                <input type="radio" name="magnitudeSelection" value="ef0" onclick="handleRadioClick(this)">
-                <span>EF0</span>
-            </label>
-            <label>
-                <input type="radio" name="magnitudeSelection" value="ef1" onclick="handleRadioClick(this)">
-                <span>EF1</span>
-            </label>
-            <label>
-                <input type="radio" name="magnitudeSelection" value="ef2" onclick="handleRadioClick(this)">
-                <span>EF2</span>
-            </label>
-            <label>
-                <input type="radio" name="magnitudeSelection" value="ef3" onclick="handleRadioClick(this)">
-                <span>EF3</span>
-            </label>
-            <label>
-                <input type="radio" name="magnitudeSelection" value="ef4" onclick="handleRadioClick(this)">
-                <span>EF4</span>
-            </label>
-            <label>
-                <input type="radio" name="magnitudeSelection" value="ef5" onclick="handleRadioClick(this)">
-                <span>EF5</span>
-            </label>
-        </div>
-        </div>
-        
     </div>
+    
 </body>
+<script src="selectionBoxes.js"></script>
 <script src="main.js"></script> 
 </html>

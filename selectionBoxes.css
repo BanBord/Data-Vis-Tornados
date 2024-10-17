@@ -5,6 +5,7 @@
     border-radius: 10px;
     color: #fff;
     text-align: left;
+    z-index: 1;
 }
 
 .selectionBox label {
@@ -12,6 +13,7 @@
     /* Ensures each label is on a new line */
     margin-bottom: 20px;
     cursor: pointer;
+    color: #ececec;
 }
 
 .selectionBox input[type=radio] {
@@ -27,8 +29,14 @@
 }
 
 #selectionBoxes {
+    font-weight: 300;
+    position: absolute;
+    z-index: 1;
+    right: 30px;
     display: flex;
     flex-direction: column;
     display: inline-block;
+    top: 50%;
+    transform: translateY(-50%);
     /* Use only as much space as needed */
 }
