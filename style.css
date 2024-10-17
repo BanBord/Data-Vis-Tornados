@@ -1,0 +1,35 @@
+        /* Your custom CSS code here */
+        body {
+            background-color: #1d1c1c; /* Replace with your desired background color */
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
+            overflow: hidden; /* Prevent scrollbars */
+        }
+        svg { width: 100%; height: 90vh; }
+        .county-label {
+            font-size: 10px;
+            fill: #ffffff; /* Set text color to white */
+            text-anchor: middle;
+        }
+        h1 {
+            translate: 25%;
+        }
+        #map-container {
+            background: #1c1c1c; /* Replace with your desired background color */
+            width: 100%;
+            text-align: center;
+            margin-top: 10px;
+        }
+        #slider-container {
+            width: 50%;
+            text-align: center;
+            margin: 20px auto 0 auto; /* Center the slider and add margin to the top */
+        }        
+        #year-slider {
+            width: 100%;
+        }
+        /* Font class for all text */
+        .font-class {
+            font-family: 'Poppins', sans-serif; /* Replace with your desired font */
+            color: #ffffff; /* Replace with your desired text color */
+        }
