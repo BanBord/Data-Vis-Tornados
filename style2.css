@@ -1,0 +1,23 @@
+.group-10, .group-11 { 
+    background-color: #3b3b3b; 
+    color: white; 
+    padding: 10px; 
+    margin-bottom: 20px;
+}
+h3 { 
+    margin: 0 0 10px;
+}
+label { 
+    display: block;
+    margin-bottom: 5px;
+}
+input[type='radio'] {  
+    margin-right: 5px;  
+}
+ul {  
+    list-style-type: none;  
+    padding-left: 0;  
+}
+li {  
+    margin-bottom: 5px;
+}
