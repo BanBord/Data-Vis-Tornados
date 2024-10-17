@@ -8,15 +8,39 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://d3js.org/topojson.v3.min.js"></script>
     <script src="lib/gmynd.js"></script> <!-- Include gmynd library -->
-
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <h1>Data Visualization Tornados</h1>
-    <div id="map-container"></div>
-    <div id="slider-container">
-        <input type="range" id="year-slider" min="1950" max="2022" value="1950" step="1">
-        <span id="year-label">1950</span>
-        <script src="main.js"></script> 
+<body class="font-class">
+    <h1>Data Visualization Tornados</h1> 
+    <div id="map-container">
+        <div id="slider-container">
+            <input type="range" id="year-slider" min="1950" max="2022" value="1950" step="1">
+            <span id="year-label">1950</span>
+        </div>
+        <div id="menu-container">
+            <label for="magnitude-select">Select Magnitude Level:</label>
+            <select id="magnitude-select">
+                <option value="all">All</option>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <label for="heatmap-select">Select Heatmap Level:</label>
+            <select id="heatmap-select">
+                <option value="none">None</option>
+                <option value="all">All</option>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
     </div>
 </body>
+<script src="main.js"></script> 
 </html>
