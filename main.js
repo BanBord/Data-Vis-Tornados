@@ -6,7 +6,7 @@ const svg = d3.select("#map-container").append("svg")
     .attr("height", height);
 
 // Define a projection and path generator
-const projection = d3.geoAlbersUsa().scale(1300).translate([width / 2, height / 2]);
+const projection = d3.geoAlbersUsa().scale(1300).translate([width / 2.5, height / 2]);
 const path = d3.geoPath().projection(projection);
 
 // Load and process TopoJSON and Tornado data
