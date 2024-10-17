@@ -9,6 +9,7 @@
     <script src="https://d3js.org/topojson.v3.min.js"></script>
     <script src="lib/gmynd.js"></script> <!-- Include gmynd library -->
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="selectionBoxes.css">
 </head>
 <body class="font-class">
     <h1>Data Visualization Tornados</h1> 
@@ -40,6 +41,49 @@
                 <option value="5">5</option>
             </select>
         </div>
+        <div id="selectionBoxes">
+            <div id="modeSelectionBox" class="selectionBox">
+            <label>
+                <input type="radio" name="modeSelection" value="singleYear" checked onclick="handleRadioClick(this)">
+                <span>Single year</span>
+            </label>
+            <label>
+                <input type="radio" name="modeSelection" value="wholePeriod" onclick="handleRadioClick(this)">
+                <span>Whole period</span>
+            </label>
+        </div>
+        <div id="magnitudeSelectionBox" class="selectionBox">
+            <label>
+                <input type="radio" name="magnitudeSelection" value="all" checked onclick="handleRadioClick(this)">
+                <span>Show all</span>
+            </label>
+            <label>
+                <input type="radio" name="magnitudeSelection" value="ef0" onclick="handleRadioClick(this)">
+                <span>EF0</span>
+            </label>
+            <label>
+                <input type="radio" name="magnitudeSelection" value="ef1" onclick="handleRadioClick(this)">
+                <span>EF1</span>
+            </label>
+            <label>
+                <input type="radio" name="magnitudeSelection" value="ef2" onclick="handleRadioClick(this)">
+                <span>EF2</span>
+            </label>
+            <label>
+                <input type="radio" name="magnitudeSelection" value="ef3" onclick="handleRadioClick(this)">
+                <span>EF3</span>
+            </label>
+            <label>
+                <input type="radio" name="magnitudeSelection" value="ef4" onclick="handleRadioClick(this)">
+                <span>EF4</span>
+            </label>
+            <label>
+                <input type="radio" name="magnitudeSelection" value="ef5" onclick="handleRadioClick(this)">
+                <span>EF5</span>
+            </label>
+        </div>
+        </div>
+        
     </div>
 </body>
 <script src="main.js"></script> 
