@@ -1,5 +1,6 @@
 let mode = 'singleYear';
 let magnitudeLevelValue = 'all';
+let yearValue = 1950;
 
 // Set up SVG container
 const width = window.innerWidth;
@@ -13,13 +14,14 @@ const projection = d3.geoAlbersUsa().scale(1300).translate([width / 2.5, height 
 const path = d3.geoPath().projection(projection);
 
 // Add event listener to the slider
-const slider = document.getElementById("year-slider");
+const slider = document.getElementById("yearSlider");
+const yearLabel = document.getElementById("year-label");
 
 let counties = [];
 let tornadoData = {};
 
 // Function to update the map based on the selected year and magnitude level
-function updateMap(year, magnitudeLevel = 'all') {
+function updateMap() {
     let filteredTornadoData;
 
     if (mode === "wholePeriod") {
@@ -30,13 +32,13 @@ function updateMap(year, magnitudeLevel = 'all') {
     } else if(mode === "singleYear") {
         // Filter tornado data based on the selected year and magnitude level
         filteredTornadoData = tornadoData.tornadoData.filter(d => {
-            return d.yr == year && (magnitudeLevel === 'all' || d.mag == magnitudeLevel);
+            return d.yr == yearValue&& (magnitudeLevelValue === 'all' || d.mag == magnitudeLevelValue);
         });
     }
 
     // Check if filtered data is empty and magnitude level is 5
-    if (filteredTornadoData.length === 0 && magnitudeLevel == 5) {
-        console.warn(`No tornadoes found for year ${year} with magnitude level ${magnitudeLevel}. Coloring all counties with #363232.`);
+    if (filteredTornadoData.length === 0 && magnitudeLevelValue == 5) {
+        console.warn(`No tornadoes found for year ${yearValue} with magnitude level ${magnitudeLevelValue}. Coloring all counties with #363232.`);
         // Color all counties with #363232
         svg.selectAll("path")
             .data(counties)
@@ -110,7 +112,7 @@ function updateMap(year, magnitudeLevel = 'all') {
         .attr("fill", d => {
             const count = d.properties.tornadoCount;
             if (isNaN(count) || count === undefined || count === null) {
-                console.warn(`Invalid tornado count for FIPS: ${d.id}, Name: ${d.properties.name}, year: ${year}, count: ${count}`);
+                console.warn(`Invalid tornado count for FIPS: ${d.id}, Name: ${d.properties.name}, year: ${yearValue}, count: ${count}`);
                 return "#363232"; // Default to dark gray for invalid counts
             }
             return colorScale(count); // Fill color based on tornado count using color scale
@@ -145,16 +147,19 @@ Promise.all([
     counties = topojson.feature(topoData, topoData.objects.counties).features;
 
     // Initial map update
-    updateMap(1950);
+    updateMap();
 
-    const yearLabel = document.getElementById("year-label");
-    slider.addEventListener("input", function () {
-        const year = +this.value;
-        yearLabel.textContent = year;
-        const magnitudeLevel = document.getElementById("magnitude-select").value;
-        // updateMap(year, magnitudeLevel, heatmapLevel);
-    });
+    
 
 }).catch(error => {
     console.error('Error loading the data:', error);
+});
+
+slider.addEventListener("input", function () {
+    yearValue = this.value;
+    yearLabel.textContent = yearValue;
+    updateMap();
+
+    // const magnitudeLevel = document.getElementById("magnitude-select").value;
+    // updateMap(year, magnitudeLevel, heatmapLevel);
 });
