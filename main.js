@@ -25,32 +25,17 @@ function updateMap() {
     let filteredTornadoData;
 
     if (mode === "wholePeriod") {
+        collapseSlider(true);
         // Aggregate tornado data by FIPS code across all years and magnitudes
         filteredTornadoData = tornadoData.tornadoData.filter(d => {
             return magnitudeLevelValue == 'all' || d.mag == magnitudeLevelValue;
         });
     } else if(mode === "singleYear") {
+        collapseSlider(false);
         // Filter tornado data based on the selected year and magnitude level
         filteredTornadoData = tornadoData.tornadoData.filter(d => {
             return d.yr == yearValue&& (magnitudeLevelValue === 'all' || d.mag == magnitudeLevelValue);
         });
-    }
-
-    // Check if filtered data is empty and magnitude level is 5
-    if (filteredTornadoData.length === 0 && magnitudeLevelValue == 5) {
-        console.warn(`No tornadoes found for year ${yearValue} with magnitude level ${magnitudeLevelValue}. Coloring all counties with #363232.`);
-        // Color all counties with #363232
-        svg.selectAll("path")
-            .data(counties)
-            .join("path")
-            .attr("d", path)
-            .attr("fill", "#363232") // Default to dark gray for no data
-            .attr("stroke", "#000000") // Black stroke for county borders
-            .attr("stroke-width", 0.07) // Stroke width
-            .attr("name", d => d.properties.name)
-            .attr("ID", d => d.id)
-            .attr("amount", d => d.properties.tornadoCount);
-        return;
     }
 
     // Group tornado data by FIPS for the specific year or for heatmap
@@ -96,13 +81,13 @@ function updateMap() {
             .domain([0, maxTornadoCount])
             .range(["#363232", "#AE2012"]),
         // Example color range for magnitude 5
-        heatmap: d3.scaleLinear()
+        wholePeriod: d3.scaleLinear()
             .domain([0, maxTornadoCount / 5, (2 * maxTornadoCount) / 5, (3 * maxTornadoCount) / 5, (4 * maxTornadoCount) / 5, maxTornadoCount])
             .range(["#363232", "#F759CB", "#CA2CA7", "#AA1088", "#720159", "#FFBAEC"])  // Color range for heatmap
     };
 
     // Select the appropriate color scale based on the magnitude level
-    const colorScale = colorScales[mode !== 'singleYear' ? 'heatmap' : magnitudeLevelValue] || colorScales.all;
+    const colorScale = colorScales[mode !== 'singleYear' ? 'wholePeriod' : magnitudeLevelValue] || colorScales.all;
 
     // Update counties with a stroke and fill color based on tornado count
     svg.selectAll("path")
@@ -111,7 +96,7 @@ function updateMap() {
         .attr("d", path)
         .attr("fill", d => {
             const count = d.properties.tornadoCount;
-            if (isNaN(count) || count === undefined || count === null) {
+            if (isNaN(count) || count === undefined || count === null || count === 0) {
                 console.warn(`Invalid tornado count for FIPS: ${d.id}, Name: ${d.properties.name}, year: ${yearValue}, count: ${count}`);
                 return "#363232"; // Default to dark gray for invalid counts
             }
@@ -134,7 +119,7 @@ function updateMap() {
             selectedCounty = tornadoData.tornadoData.filter(t => t.FIPS == selectedFIPS);
         })
         .on("mouseout", function (event, d) {
-            d3.select(this).attr("fill", colorScale(d.properties.tornadoCount));
+            d3.select(this).attr("fill", d.properties.tornadoCount > 0 ? colorScale(d.properties.tornadoCount) : "#363232");
         });
 }
 

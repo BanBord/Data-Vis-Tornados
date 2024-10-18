@@ -23,7 +23,8 @@ svg {
 }
 
 h1 {
-    translate: 25%;
+    position: absolute;
+    left: 100px;
 }
 
 #map-container {

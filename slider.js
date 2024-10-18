@@ -17,13 +17,15 @@ function play() {
     if (playing) {
         if (sliderCollapsible.value < sliderCollapsible.max) {
             sliderCollapsible.value++;
-            setTimeout(play, 100); // Adjust speed as needed
+            setTimeout(play, 500); // Adjust speed as needed
+            yearValue = sliderCollapsible.value;
+            updateMap();
         } else {
             playing = false; // Stop at the end
             sliderCollapsible.value = 1950; // Reset to the beginning
             playPauseButton.textContent = '>';
         }
-        console.log(sliderCollapsible.value);
+        
     }
 }
 

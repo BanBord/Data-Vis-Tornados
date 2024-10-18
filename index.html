@@ -57,19 +57,20 @@
     </div>
     <h1>Data Visualization Tornados</h1> 
     <div id="map-container">
-        <div id="slider-container">
-            <input type="range" id="year-slider" min="1950" max="2022" value="1950" step="1">
-            <span id="year-label">1950</span>
-        </div>
+        
         <div class="timeline-container">
             <span class="timeline-label">1950</span>
-            <input type="range" min="1950" max="2022" value="1950" class="timeline-slider" id="yearSlider">
+            <div id="sliderContainer">
+                <input type="range" min="1950" max="2022" value="1950" class="timeline-slider" id="yearSlider">
+                <span id="year-label">1950</span>
+            </div>
             <div class="collapsed-line" id="collapsed-line" style="display: none;"></div>
             <span class="timeline-label">2022</span>
             <div class="control-buttons">
                 <button id="playPauseButton">></button>
             </div>
         </div>
+        
     </div>
     
 </body>
