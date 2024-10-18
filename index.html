@@ -16,41 +16,41 @@
     <div id="selectionBoxes">
         <div id="modeSelectionBox" class="selectionBox">
         <label>
-            <input type="radio" name="modeSelection" value="singleYear" checked onclick="handleSelectionBox(this)">
+            <input type="radio" name="modeSelection" value="singleYear" checked onclick="handleModeSelection(this)">
             <span>Single year</span>
         </label>
         <label>
-            <input type="radio" name="modeSelection" value="wholePeriod" onclick="handleSelectionBox(this)">
+            <input type="radio" name="modeSelection" value="wholePeriod" onclick="handleModeSelection(this)">
             <span>Whole period</span>
         </label>
     </div>
     <div id="magnitudeSelectionBox" class="selectionBox">
         <label>
-            <input type="radio" name="magnitudeSelection" value="all" checked onclick="handleSelectionBox(this)">
+            <input type="radio" name="magnitudeSelection" value="all" checked onclick="handleMagnitudeSelection(this)">
             <span>Show all</span>
         </label>
         <label>
-            <input type="radio" name="magnitudeSelection" value="0" onclick="handleSelectionBox(this)">
+            <input type="radio" name="magnitudeSelection" value="0" onclick="handleMagnitudeSelection(this)">
             <span>EF 0</span>
         </label>
         <label>
-            <input type="radio" name="magnitudeSelection" value="1" onclick="handleSelectionBox(this)">
+            <input type="radio" name="magnitudeSelection" value="1" onclick="handleMagnitudeSelection(this)">
             <span>EF 1</span>
         </label>
         <label>
-            <input type="radio" name="magnitudeSelection" value="2" onclick="handleSelectionBox(this)">
+            <input type="radio" name="magnitudeSelection" value="2" onclick="handleMagnitudeSelection(this)">
             <span>EF 2</span>
         </label>
         <label>
-            <input type="radio" name="magnitudeSelection" value="3" onclick="handleSelectionBox(this)">
+            <input type="radio" name="magnitudeSelection" value="3" onclick="handleMagnitudeSelection(this)">
             <span>EF 3</span>
         </label>
         <label>
-            <input type="radio" name="magnitudeSelection" value="4" onclick="handleSelectionBox(this)">
+            <input type="radio" name="magnitudeSelection" value="4" onclick="handleMagnitudeSelection(this)">
             <span>EF 4</span>
         </label>
         <label>
-            <input type="radio" name="magnitudeSelection" value="5" onclick="handleSelectionBox(this)">
+            <input type="radio" name="magnitudeSelection" value="5" onclick="handleMagnitudeSelection(this)">
             <span>EF 5</span>
         </label>
     </div>
@@ -60,29 +60,6 @@
         <div id="slider-container">
             <input type="range" id="year-slider" min="1950" max="2022" value="1950" step="1">
             <span id="year-label">1950</span>
-        </div>
-        <div id="menu-container">
-            <label for="magnitude-select">Select Magnitude Level:</label>
-            <select id="magnitude-select">
-                <option value="all">All</option>
-                <option value="0">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>
-            <label for="heatmap-select">Select Heatmap Level:</label>
-            <select id="heatmap-select">
-                <option value="none">None</option>
-                <option value="all">All</option>
-                <option value="0">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>
         </div>
         <div class="timeline-container">
             <span class="timeline-label">1950</span>

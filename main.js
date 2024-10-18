@@ -1,3 +1,6 @@
+let mode = 'singleYear';
+let magnitudeLevelValue = 'all';
+
 // Set up SVG container
 const width = window.innerWidth;
 const height = window.innerHeight * 0.9; // Adjust height for slider
@@ -16,15 +19,15 @@ let counties = [];
 let tornadoData = {};
 
 // Function to update the map based on the selected year and magnitude level
-function updateMap(year, magnitudeLevel = 'all', heatmapLevel = 'none') {
+function updateMap(year, magnitudeLevel = 'all') {
     let filteredTornadoData;
 
-    if (heatmapLevel !== 'none') {
+    if (mode === "wholePeriod") {
         // Aggregate tornado data by FIPS code across all years and magnitudes
         filteredTornadoData = tornadoData.tornadoData.filter(d => {
-            return heatmapLevel == 'all' || d.mag == heatmapLevel;
+            return magnitudeLevelValue == 'all' || d.mag == magnitudeLevelValue;
         });
-    } else {
+    } else if(mode === "singleYear") {
         // Filter tornado data based on the selected year and magnitude level
         filteredTornadoData = tornadoData.tornadoData.filter(d => {
             return d.yr == year && (magnitudeLevel === 'all' || d.mag == magnitudeLevel);
@@ -97,7 +100,7 @@ function updateMap(year, magnitudeLevel = 'all', heatmapLevel = 'none') {
     };
 
     // Select the appropriate color scale based on the magnitude level
-    const colorScale = colorScales[heatmapLevel !== 'none' ? 'heatmap' : magnitudeLevel] || colorScales.all;
+    const colorScale = colorScales[mode !== 'singleYear' ? 'heatmap' : magnitudeLevelValue] || colorScales.all;
 
     // Update counties with a stroke and fill color based on tornado count
     svg.selectAll("path")
@@ -149,26 +152,7 @@ Promise.all([
         const year = +this.value;
         yearLabel.textContent = year;
         const magnitudeLevel = document.getElementById("magnitude-select").value;
-        const heatmapLevel = document.getElementById("heatmap-select").value;
-        updateMap(year, magnitudeLevel, heatmapLevel);
-    });
-
-    // Add event listener to the magnitude select menu
-    const magnitudeSelect = document.getElementById("magnitude-select");
-    magnitudeSelect.addEventListener("change", function () {
-        const magnitudeLevel = this.value;
-        const year = +slider.value;
-        const heatmapLevel = document.getElementById("heatmap-select").value;
-        updateMap(year, magnitudeLevel, heatmapLevel);
-    });
-
-    // Add event listener to the heatmap select menu
-    const heatmapSelect = document.getElementById("heatmap-select");
-    heatmapSelect.addEventListener("change", function () {
-        const heatmapLevel = this.value;
-        const year = +slider.value;
-        const magnitudeLevel = document.getElementById("magnitude-select").value;
-        updateMap(year, magnitudeLevel, heatmapLevel);
+        // updateMap(year, magnitudeLevel, heatmapLevel);
     });
 
 }).catch(error => {
