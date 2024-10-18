@@ -1,35 +1,130 @@
-        /* Your custom CSS code here */
-        body {
-            background-color: #1d1c1c; /* Replace with your desired background color */
-            margin: 0; /* Remove default margin */
-            padding: 0; /* Remove default padding */
-            overflow: hidden; /* Prevent scrollbars */
-        }
-        svg { width: 100%; height: 90vh; }
-        .county-label {
-            font-size: 10px;
-            fill: #ffffff; /* Set text color to white */
-            text-anchor: middle;
-        }
-        h1 {
-            translate: 25%;
-        }
-        #map-container {
-            background: #1c1c1c; /* Replace with your desired background color */
-            width: 100%;
-            text-align: center;
-            margin-top: 10px;
-        }
-        #slider-container {
-            width: 50%;
-            text-align: center;
-            margin: 20px auto 0 auto; /* Center the slider and add margin to the top */
-        }        
-        #year-slider {
-            width: 100%;
-        }
-        /* Font class for all text */
-        .font-class {
-            font-family: 'Poppins', sans-serif; /* Replace with your desired font */
-            color: #ffffff; /* Replace with your desired text color */
-        }
+/* Your custom CSS code here */
+body {
+    background-color: #1d1c1c;
+    /* Replace with your desired background color */
+    margin: 0;
+    /* Remove default margin */
+    padding: 0;
+    /* Remove default padding */
+    overflow: hidden;
+    /* Prevent scrollbars */
+}
+
+svg {
+    width: 100%;
+    height: 90vh;
+}
+
+.county-label {
+    font-size: 10px;
+    fill: #ffffff;
+    /* Set text color to white */
+    text-anchor: middle;
+}
+
+h1 {
+    translate: 25%;
+}
+
+#map-container {
+    background: #1c1c1c;
+    /* Replace with your desired background color */
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+}
+
+#slider-container {
+    width: 50%;
+    text-align: center;
+    margin: 20px auto 0 auto;
+    /* Center the slider and add margin to the top */
+}
+
+#year-slider {
+    width: 100%;
+}
+
+/* Font class for all text */
+.font-class {
+    font-family: 'Poppins', sans-serif;
+    /* Replace with your desired font */
+    color: #ffffff;
+    /* Replace with your desired text color */
+}
+
+
+.timeline-container {
+    display: flex;
+    align-items: center;
+}
+
+.timeline-label {
+    margin: 0 10px;
+}
+
+.timeline-slider {
+    -webkit-appearance: none;
+    width: 300px;
+    height: 5px;
+    background: #333;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity .15s ease-in-out;
+}
+
+.timeline-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    background: #ccc;
+    cursor: pointer;
+}
+
+.timeline-slider::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    background: #ccc;
+    cursor: pointer;
+}
+
+.control-buttons {
+    margin-left: 10px;
+}
+
+.control-buttons button {
+    background-color: #444;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.control-buttons button:hover {
+    background-color: #555;
+}
+
+.collapse-button {
+    margin-left: 10px;
+    padding: 10px 15px;
+    background-color: #444;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.collapsed-slider {
+    display: none;
+}
+
+.collapsed-line {
+    width: 10px;
+    height: 5px;
+    background: #fff;
+    /* Custom background color */
+    border-radius: 5px;
+    /* Custom border radius */
+    margin: 0 5px;
+    /* Custom margin */
+}

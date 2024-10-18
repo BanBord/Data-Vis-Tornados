@@ -83,8 +83,20 @@
                 <option value="5">5</option>
             </select>
         </div>
+        <div class="timeline-container">
+            <span class="timeline-label">1950</span>
+            <input type="range" min="1950" max="2022" value="1950" class="timeline-slider" id="yearSlider">
+            <div class="collapsed-line" id="collapsed-line" style="display: none;"></div>
+            <span class="timeline-label">2022</span>
+            <div class="control-buttons">
+                <button id="playPauseButton">></button>
+                <button class="collapse-button" id="collapse-button">Collapse</button>
+            </div>
+        </div>
     </div>
+    
 </body>
+<script src="slider.js"></script>
 <script src="selectionBoxes.js"></script>
 <script src="main.js"></script> 
 </html>
