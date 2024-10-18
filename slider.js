@@ -27,15 +27,19 @@ function play() {
     }
 }
 
-document.getElementById('collapse-button').addEventListener('click', function () {
+function collapseSlider(isCollapsed) {
     const collapsedLine = document.getElementById('collapsed-line');
-    const isCollapsed = sliderCollapsible.classList.toggle('collapsed-slider');
+    const playPauseButton = document.getElementById('playPauseButton');
+    // let isCollapsed = sliderCollapsible.classList.toggle('collapsed-slider');
 
     if (isCollapsed) {
         sliderCollapsible.style.display = 'none';
         collapsedLine.style.display = 'block';
+        playPauseButton.style.display = 'none';
+
     } else {
         sliderCollapsible.style.display = 'block';
         collapsedLine.style.display = 'none';
+        playPauseButton.style.display = 'block';
     }
-});
+}

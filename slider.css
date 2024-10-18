@@ -1,0 +1,83 @@
+.timeline-container {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    z-index: 1;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.timeline-label {
+    margin: 0 10px;
+}
+
+.timeline-slider {
+    -webkit-appearance: none;
+    width: 300px;
+    height: 5px;
+    background: #333;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity .15s ease-in-out;
+    
+}
+
+.timeline-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    background: #ccc;
+    cursor: pointer;
+    border-radius: 50%; /* Make the slider thumb rounded */
+}
+
+.timeline-slider::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    background: #ccc;
+    cursor: pointer;
+    border-radius: 50%; /* Make the slider thumb rounded */
+}
+
+.control-buttons {
+    margin-left: 10px;
+}
+
+.control-buttons button {
+    background-color: #444;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.control-buttons button:hover {
+    background-color: #555;
+}
+
+.collapse-button {
+    margin-left: 10px;
+    padding: 10px 15px;
+    background-color: #444;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.collapsed-slider {
+    display: none;
+}
+
+.collapsed-line {
+    width: 10px;
+    height: 5px;
+    background: #fff;
+    /* Custom background color */
+    border-radius: 5px;
+    /* Custom border radius */
+    margin: 0 5px;
+    /* Custom margin */
+}

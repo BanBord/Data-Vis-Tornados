@@ -24,6 +24,7 @@ function handleSelectionBox(e) {
     }
 
     if(isWholePeriod){
+
         heatmapLevelValue = e.value;
         if(magnitudeLevelValue === 'all'){
             heatmapLevelValue = 'all';
