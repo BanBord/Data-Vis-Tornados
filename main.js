@@ -10,7 +10,7 @@ const svg = d3.select("#map-container").append("svg")
     .attr("height", height);
 
 // Define a projection and path generator
-const projection = d3.geoAlbersUsa().scale(1300).translate([width / 2.5, height / 2]);
+let projection = d3.geoAlbersUsa().scale(width * 0.9).translate([width / 2.5, height / 2]);
 const path = d3.geoPath().projection(projection);
 
 // Add event listener to the slider
