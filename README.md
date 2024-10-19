@@ -36,7 +36,7 @@ We welcome contributions and suggestions. Please open an issue or submit a pull 
 
 ## Contributors
 
-Bruno Gross
-Eric Hochstatter
-Jannik Fauser
-Timon Czarny
+Bruno Gross\
+Eric Hochstatter\
+Jannik Fauser\
+Timon Czarny\
