@@ -39,4 +39,4 @@ We welcome contributions and suggestions. Please open an issue or submit a pull 
 Bruno Gross\
 Eric Hochstatter\
 Jannik Fauser\
-Timon Czarny\
+Timon Czarny
