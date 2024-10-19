@@ -34,6 +34,13 @@ To run this visualization locally:
 
 We welcome contributions and suggestions. Please open an issue or submit a pull request.
 
+## Contributors
+
+Bruno Gross
+Eric Hochstatter
+Jannik Fauser
+Timon Czarny
+
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.

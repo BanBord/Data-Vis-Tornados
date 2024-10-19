@@ -46,8 +46,6 @@ function updateMap() {
         });
     }
 
-    // Group tornado data by FIPS for the specific year or for heatmap
-    const groupedByFIPSCode = gmynd.groupData(filteredTornadoData, ['FIPS']);
     // Cumulate tornado data by FIPS for the specific year or for heatmap
     const cumulatedData = gmynd.cumulateData(filteredTornadoData, ['FIPS'], [{ value: 'FIPS', method: 'count', }]);
 
@@ -144,9 +142,6 @@ Promise.all([
 
     // Initial map update
     updateMap();
-
-    
-
 }).catch(error => {
     console.error('Error loading the data:', error);
 });
@@ -155,14 +150,12 @@ slider.addEventListener("input", function () {
     yearValue = this.value;
     yearLabel.textContent = yearValue;
     updateMap();
-
-    // const magnitudeLevel = document.getElementById("magnitude-select").value;
-    // updateMap(year, magnitudeLevel, heatmapLevel);
 });
 
-// Add event listener to the infoIcon onHover
+// Event listener for the info icon and info text
 const infoIcon = document.getElementById("infoIcon");
 const hoverText = document.getElementById("hoverText");
+
 infoIcon.addEventListener("mouseover", function () {
     hoverText.style.display = "block";
 });
