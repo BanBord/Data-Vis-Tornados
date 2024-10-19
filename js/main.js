@@ -48,8 +48,6 @@ function updateMap() {
 
     // Group tornado data by FIPS for the specific year or for heatmap
     const groupedByFIPSCode = gmynd.groupData(filteredTornadoData, ['FIPS']);
-    // console.log('Grouped by FIPS Code:', groupedByFIPSCode);
-
     // Cumulate tornado data by FIPS for the specific year or for heatmap
     const cumulatedData = gmynd.cumulateData(filteredTornadoData, ['FIPS'], [{ value: 'FIPS', method: 'count', }]);
 
@@ -62,8 +60,6 @@ function updateMap() {
 
     // Extract tornado counts for color mapping
     const maxTornadoCount = d3.max(counties, d => d.properties.tornadoCount);
-
-    console.log('Max tornado count:', maxTornadoCount);
 
     // Define color scales for each magnitude level
     const colorScales = {
