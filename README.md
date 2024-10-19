@@ -40,12 +40,3 @@ Bruno Gross
 Eric Hochstatter
 Jannik Fauser
 Timon Czarny
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-Citations:
-[1] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/5287392/5f594845-f60b-445b-88cd-5ea26e4cb041/topojson.json
-[2] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/5287392/c69dfde7-499f-4d07-9120-78fb8e5c18f5/Tornados_short_FIPS.json
-[3] https://github.com/topojson/us-atlas?tab=readme-ov-file
