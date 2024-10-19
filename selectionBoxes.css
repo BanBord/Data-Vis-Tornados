@@ -1,5 +1,5 @@
 .selectionBox {
-    background-color: #444;
+    background-color: #4d4949;
     padding: 20px 25px 1px 25px;
     margin: 20px;
     border-radius: 10px;
@@ -39,4 +39,23 @@
     top: 50%;
     transform: translateY(-50%);
     /* Use only as much space as needed */
+}
+
+#infoIcon {
+    position: absolute;
+    top: 22px;
+    right: 20px;
+    cursor: pointer;
+    scale: 1.2;
+}
+
+#hoverText {
+    position: absolute;
+    line-height: 1.5;
+    width: 300px;
+    font-size: 14px;
+    right: 30px;
+    bottom: 32px;
+    z-index: 1;
+    display: none;
 }

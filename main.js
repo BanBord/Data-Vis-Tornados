@@ -20,6 +20,14 @@ const yearLabel = document.getElementById("year-label");
 let counties = [];
 let tornadoData = {};
 
+// calculate the position of the year-label
+const yearLabelWidth = yearLabel.offsetWidth;
+const sliderLeft = slider.getBoundingClientRect().left + window.scrollX;
+const sliderWidth = slider.offsetWidth;
+const sliderCenter = sliderLeft + sliderWidth / 2 - yearLabelWidth / 2;
+yearLabel.style.left = `${sliderCenter}px`;
+
+
 // Function to update the map based on the selected year and magnitude level
 function updateMap() {
     let filteredTornadoData;
@@ -109,17 +117,24 @@ function updateMap() {
         .attr("amount", d => d.properties.tornadoCount)
         .on("mouseover", function (event, d) {
             d3.select(this).attr("fill", "white");
-            const selectedFIPS = d.id;
-            console.log('Selected FIPS:', selectedFIPS);
 
-            // Debugging: Log the tornado data to ensure it has the expected structure
-            console.log('Tornado Data:', tornadoData.tornadoData);
-
-            // Filter the tornado data for the selected FIPS code
-            selectedCounty = tornadoData.tornadoData.filter(t => t.FIPS == selectedFIPS);
+            // Show the hover label
+            const hoverLabel = d3.select("#hoverLabel");
+            hoverLabel.style("display", "block")
+                .text(d.properties.name);
+        })
+        .on("mousemove", function (event) {
+            // Position the hover label relative to the mouse pointer
+            const hoverLabel = d3.select("#hoverLabel");
+            hoverLabel.style("left", (event.pageX + 15) + "px")
+                .style("top", (event.pageY - 30) + "px");
         })
         .on("mouseout", function (event, d) {
             d3.select(this).attr("fill", d.properties.tornadoCount > 0 ? colorScale(d.properties.tornadoCount) : "#363232");
+
+            // Hide the hover label
+            const hoverLabel = d3.select("#hoverLabel");
+            hoverLabel.style("display", "none");
         });
 }
 
@@ -147,4 +162,14 @@ slider.addEventListener("input", function () {
 
     // const magnitudeLevel = document.getElementById("magnitude-select").value;
     // updateMap(year, magnitudeLevel, heatmapLevel);
+});
+
+// Add event listener to the infoIcon onHover
+const infoIcon = document.getElementById("infoIcon");
+const hoverText = document.getElementById("hoverText");
+infoIcon.addEventListener("mouseover", function () {
+    hoverText.style.display = "block";
+});
+infoIcon.addEventListener("mouseout", function () {
+    hoverText.style.display = "none";
 });

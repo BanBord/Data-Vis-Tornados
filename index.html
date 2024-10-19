@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,69 +13,78 @@
     <link rel="stylesheet" href="selectionBoxes.css">
     <link rel="stylesheet" href="slider.css">
 </head>
+
 <body class="font-class">
+    <div id="hoverLabel" class="hover-label"></div>
     <div id="selectionBoxes">
         <div id="modeSelectionBox" class="selectionBox">
-        <label>
-            <input type="radio" name="modeSelection" value="singleYear" checked onclick="handleModeSelection(this)">
-            <span>Single year</span>
-        </label>
-        <label>
-            <input type="radio" name="modeSelection" value="wholePeriod" onclick="handleModeSelection(this)">
-            <span>Whole period</span>
-        </label>
+            <label>
+                <input type="radio" name="modeSelection" value="singleYear" checked onclick="handleModeSelection(this)">
+                <span>Single year</span>
+            </label>
+            <label>
+                <input type="radio" name="modeSelection" value="wholePeriod" onclick="handleModeSelection(this)">
+                <span>Whole period</span>
+            </label>
+        </div>
+        <div id="magnitudeSelectionBox" class="selectionBox">
+            <img id="infoIcon" src="res/icons/info.svg" alt="Info Icon" class="info-icon">
+            <label>
+                <input type="radio" name="magnitudeSelection" value="all" checked
+                    onclick="handleMagnitudeSelection(this)">
+                <span>Show all</span>
+            </label>
+            <label>
+                <input type="radio" name="magnitudeSelection" value="0" onclick="handleMagnitudeSelection(this)">
+                <span>EF 0</span>
+            </label>
+            <label>
+                <input type="radio" name="magnitudeSelection" value="1" onclick="handleMagnitudeSelection(this)">
+                <span>EF 1</span>
+            </label>
+            <label>
+                <input type="radio" name="magnitudeSelection" value="2" onclick="handleMagnitudeSelection(this)">
+                <span>EF 2</span>
+            </label>
+            <label>
+                <input type="radio" name="magnitudeSelection" value="3" onclick="handleMagnitudeSelection(this)">
+                <span>EF 3</span>
+            </label>
+            <label>
+                <input type="radio" name="magnitudeSelection" value="4" onclick="handleMagnitudeSelection(this)">
+                <span>EF 4</span>
+            </label>
+            <label>
+                <input type="radio" name="magnitudeSelection" value="5" onclick="handleMagnitudeSelection(this)">
+                <span>EF 5</span>
+            </label>
+        </div>
     </div>
-    <div id="magnitudeSelectionBox" class="selectionBox">
-        <label>
-            <input type="radio" name="magnitudeSelection" value="all" checked onclick="handleMagnitudeSelection(this)">
-            <span>Show all</span>
-        </label>
-        <label>
-            <input type="radio" name="magnitudeSelection" value="0" onclick="handleMagnitudeSelection(this)">
-            <span>EF 0</span>
-        </label>
-        <label>
-            <input type="radio" name="magnitudeSelection" value="1" onclick="handleMagnitudeSelection(this)">
-            <span>EF 1</span>
-        </label>
-        <label>
-            <input type="radio" name="magnitudeSelection" value="2" onclick="handleMagnitudeSelection(this)">
-            <span>EF 2</span>
-        </label>
-        <label>
-            <input type="radio" name="magnitudeSelection" value="3" onclick="handleMagnitudeSelection(this)">
-            <span>EF 3</span>
-        </label>
-        <label>
-            <input type="radio" name="magnitudeSelection" value="4" onclick="handleMagnitudeSelection(this)">
-            <span>EF 4</span>
-        </label>
-        <label>
-            <input type="radio" name="magnitudeSelection" value="5" onclick="handleMagnitudeSelection(this)">
-            <span>EF 5</span>
-        </label>
+    <div id="hoverText">
+        <p>The Enhanced Fujita Scale (EF Scale) rates tornado intensity based on the damage they cause, which helps
+            estimate wind speeds. It ranges from EF0 to EF5, with each level indicating increasing severity.</p>
     </div>
-    </div>
-    <h1>Data Visualization Tornados</h1> 
+    <h1>Tornado Occurrences<br>per US Counties</h1>
     <div id="map-container">
-        
         <div class="timeline-container">
             <span class="timeline-label">1950</span>
             <div id="sliderContainer">
                 <input type="range" min="1950" max="2022" value="1950" class="timeline-slider" id="yearSlider">
-                <span id="year-label">1950</span>
             </div>
             <div class="collapsed-line" id="collapsed-line" style="display: none;"></div>
             <span class="timeline-label">2022</span>
             <div class="control-buttons">
-                <button id="playPauseButton">></button>
+                <button id="playPauseButton">
+                    <img id="play-arrow" src="res/icons/play-arrow.svg" alt="Play Icon" class="info-icon">
+                    <img id="pause-icon" src="res/icons/pause.svg" alt="Pause Icon" class="info-icon">
+                </button>
             </div>
         </div>
-        
+        <span id="year-label">1950</span>
     </div>
-    
 </body>
 <script src="slider.js"></script>
 <script src="selectionBoxes.js"></script>
-<script src="main.js"></script> 
+<script src="main.js"></script>
+
 </html>

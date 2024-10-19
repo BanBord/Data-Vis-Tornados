@@ -7,7 +7,9 @@ body {
     padding: 0;
     /* Remove default padding */
     overflow: hidden;
+    font-family: 'Poppins', sans-serif;
     /* Prevent scrollbars */
+    user-select: none;
 }
 
 svg {
@@ -24,7 +26,11 @@ svg {
 
 h1 {
     position: absolute;
-    left: 100px;
+    right: 55px;
+    text-align: end;
+    font-size: 38px;
+    line-height: 1.3;
+    font-weight: 500;
 }
 
 #map-container {
@@ -43,7 +49,8 @@ h1 {
 }
 
 #year-slider {
-    width: 100%;
+    /* position: ab; */
+    text-align: center;
 }
 
 /* Font class for all text */
@@ -52,4 +59,22 @@ h1 {
     /* Replace with your desired font */
     color: #ffffff;
     /* Replace with your desired text color */
+}
+
+#magnitudeSelectionBox {
+    position: relative; /* Add this line */
+    /* Your existing styles */
+}
+
+.hover-label {
+    position: absolute;
+    /* background-color: rgba(0, 0, 0, 0.7); */
+    background-color: #4d4949;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px 5px 5px 0px;
+    pointer-events: none; /* Prevent the label from interfering with mouse events */
+    display: none; /* Hide the label by default */
+    z-index: 10; /* Ensure the label is above other elements */
+    box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.25); /* Add a shadow effect */
 }
