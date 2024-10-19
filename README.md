@@ -34,6 +34,10 @@ To run this visualization locally:
 
 We welcome contributions and suggestions. Please open an issue or submit a pull request.
 
+##Disclaimer
+
+This repository contains a tornado data visualization project created for educational purposes only. It is not intended for commercial use. All data and libraries used were freely accessible online at the time of development. This project is shared for learning and demonstration purposes, with no commercial intent. Users should respect the original licenses of all third-party resources incorporated in this project. 
+
 ## Contributors
 
 Bruno Gross\
