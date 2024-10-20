@@ -34,18 +34,13 @@ To run this visualization locally:
 
 We welcome contributions and suggestions. Please open an issue or submit a pull request.
 
+## Disclaimer
+
+This repository contains a tornado data visualization project created for educational purposes only. It is not intended for commercial use. All data and libraries used were freely accessible online at the time of development. This project is shared for learning and demonstration purposes, with no commercial intent. Users should respect the original licenses of all third-party resources incorporated in this project. 
+
 ## Contributors
 
-Bruno Gross
-Eric Hochstatter
-Jannik Fauser
+Bruno Gross\
+Eric Hochstatter\
+Jannik Fauser\
 Timon Czarny
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-Citations:
-[1] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/5287392/5f594845-f60b-445b-88cd-5ea26e4cb041/topojson.json
-[2] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/5287392/c69dfde7-499f-4d07-9120-78fb8e5c18f5/Tornados_short_FIPS.json
-[3] https://github.com/topojson/us-atlas?tab=readme-ov-file
