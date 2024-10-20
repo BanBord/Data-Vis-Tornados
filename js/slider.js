@@ -29,9 +29,10 @@ function play() {
         } else {
             playing = false; // Stop at the end
             sliderCollapsible.value = 1950; // Reset to the beginning
-            playPauseButton.textContent = '>';
+            pauseIcon.style.display = 'none';
+            playArrow.style.display = 'block';
         }
-        
+
     }
 }
 

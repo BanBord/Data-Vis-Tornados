@@ -105,6 +105,12 @@
 #playPauseButton img {
     width: 20px; /* Adjust the size as needed */
     height: 20px; /* Adjust the size as needed */
+    user-drag: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 #pause-icon {
